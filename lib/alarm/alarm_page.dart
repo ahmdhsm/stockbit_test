@@ -29,14 +29,6 @@ class AlarmPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // ElevatedButton(
-            //   onPressed: clockController.setRotateHour,
-            //   child: Text("Hour"),
-            // ),
-            // ElevatedButton(
-            //   onPressed: clockController.setRotateMinute,
-            //   child: Text("Minute"),
-            // ),
             Clock(clockController),
           ],
         ),
