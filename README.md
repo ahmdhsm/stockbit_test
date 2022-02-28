@@ -1,16 +1,11 @@
-# stockbit_test
+# Alarm App With Analog Clock
 
-A new Flutter project.
+- This project use ```Flutter 2.8.1``` and ```Dart 2.15.1```.
+- Running this command ```flutter pub get``` in terminal to download depedencies.
+- This project use ```Riverpod``` as state management.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Project Folder Structure
+- [lib/clock](lib/clock)
+This folder used to save code for rendering and handle analog clock in this app.
+- [lib/alarm](lib/alarm)
+This folder used to save code for handle alarm service in this app.
