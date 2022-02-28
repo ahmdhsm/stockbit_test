@@ -23,11 +23,13 @@ class NotificationService {
 
   NotificationService._internal();
 
+  // function to count different time
   int countSecond(tz.TZDateTime startTime, tz.TZDateTime endTime) {
     Duration diff = endTime.difference(startTime);
     return diff.inSeconds;
   }
 
+  // initialization function that called in main
   Future<void> init() async {
     final AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
@@ -51,13 +53,14 @@ class NotificationService {
         onSelectNotification: selectNotification);
   }
 
+  // event when user tap on notification
   void selectNotification(String? payload) async {
     tz.TZDateTime nowTime = tz.TZDateTime.now(tz.local);
     notificationHour = nowTime.hour;
     notificationMinute = nowTime.minute;
     notificationSecond = nowTime.second;
     var strSplit = payload?.split("-");
-    
+
     int duration = int.parse(strSplit![0]);
     var clockSplit = strSplit[1].split(" ");
 
@@ -76,10 +79,12 @@ class NotificationService {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => DetailPage(duration, difference.abs())),
+      MaterialPageRoute(
+          builder: (context) => DetailPage(duration, difference.abs())),
     );
   }
 
+  // register scheduled notification
   showScheduledNotification(int hour, int minute) async {
     await flutterLocalNotificationsPlugin.cancelAll();
     tz.TZDateTime nowTime = tz.TZDateTime.now(tz.local);
@@ -89,28 +94,21 @@ class NotificationService {
     }
 
     int second = nowTime.second;
-    
+
     tz.TZDateTime nextTime = tz.TZDateTime.local(
-      nowTime.year,
-      nowTime.month,
-      nowTime.day,
-      hour,
-      minute,
-      second
-    );
+        nowTime.year, nowTime.month, nowTime.day, hour, minute, second);
 
     int difference = countSecond(nowTime, nextTime);
 
     if (nextTime.isBefore(nowTime)) {
       Fluttertoast.showToast(
-        msg: "Cannot set alarm",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+          msg: "Cannot set alarm",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
       return;
     }
     Fluttertoast.showToast(
@@ -120,16 +118,14 @@ class NotificationService {
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
     await flutterLocalNotificationsPlugin.zonedSchedule(
       0,
       'Alarm Title',
       'Alarm Body',
       tz.TZDateTime.now(tz.local).add(Duration(seconds: difference)),
       const NotificationDetails(
-        android: AndroidNotificationDetails(
-            '122333333', 'my channel name',
+        android: AndroidNotificationDetails('122333333', 'my channel name',
             channelDescription: 'my channel description'),
       ),
       androidAllowWhileIdle: true,
@@ -139,9 +135,10 @@ class NotificationService {
     );
   }
 
+  // used to determine if this app opened from notification
   Future<void> checkNotifikasi() async {
     final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-    await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+        await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
     if (notificationAppLaunchDetails?.didNotificationLaunchApp == true) {
       if (notificationAppLaunchDetails?.payload != null) {
         selectNotification(notificationAppLaunchDetails?.payload);

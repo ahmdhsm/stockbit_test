@@ -13,6 +13,7 @@ class ClockCircle extends CustomPainter {
     radius = circleSize / 2;
   }
 
+  // creating circle as background analog clock
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint();

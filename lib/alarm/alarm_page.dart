@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:stockbit_test/alarm/alarm_controller.dart';
-import 'package:stockbit_test/alarm/notification_service.dart';
 
+import 'notification_service.dart';
 import '../clock/clock.dart';
 
 class AlarmPage extends ConsumerWidget {
